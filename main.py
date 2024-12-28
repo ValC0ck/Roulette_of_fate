@@ -8,6 +8,30 @@ def choice_from_variants(arr: list) -> str:
     choice = arr[index_of_choice]
     return choice
 
+def edit_array(arr: list) -> list:
+    elem = ""
+    while elem.lower() != "stop":
+        print("Выберите элемент для редактирования")
+        elem = input()
+        choice = int(elem)
+        if elem == "stop":
+            break
+        while choice > len(arr):
+            print("Такого элемента нет")
+            choice = int(input())
+
+        index_of_elem = elem - 1
+
+        print("1. Редактировать\n"
+              "2. Удалить")
+        action = int(input())
+        if action == 1:
+            arr[index_of_elem] = input()
+            print("Редактировние успешно!")
+        elif action == 2:
+            arr.pop(index_of_elem)
+            print("Удаление успешно!")
+
 count_of_variants: int = 0
 variant: str = ""
 variants: list = []
@@ -19,8 +43,16 @@ while variant.lower() != "stop":
 
 count_of_variants = len(variants)
 
-for i in range(10):
-    print(choice_from_variants(variants))
-    sleep(1)
-print(f"ПОБЕДИТЕЛЬ: ***{choice_from_variants(variants)}***")
-print(f"ШАНС: {1/count_of_variants * 100}%")
+print(f"Правильный список?:")
+for i in range(len(variants)):
+    print(f"{i + 1}: {variants[i]}")
+print(f"1 - ДА\n2 - НЕТ")
+answer = int(input())
+if answer == 2:
+    edit_array(variants)
+else:
+    for i in range(10):
+        print(choice_from_variants(variants))
+        sleep(1)
+    print(f"ПОБЕДИТЕЛЬ: ***{choice_from_variants(variants)}***")
+    print(f"ШАНС: {1/count_of_variants * 100}%")
