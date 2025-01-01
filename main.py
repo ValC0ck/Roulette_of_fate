@@ -14,13 +14,13 @@ def edit_array(arr: list) -> list:
         print("Выберите элемент для редактирования")
         elem = input()
         choice = int(elem)
-        if elem == "stop":
+        if elem == "0":
             break
         while choice > len(arr):
             print("Такого элемента нет")
             choice = int(input())
 
-        index_of_elem = elem - 1
+        index_of_elem = choice - 1
 
         print("1. Редактировать\n"
               "2. Удалить")
@@ -28,24 +28,28 @@ def edit_array(arr: list) -> list:
         if action == 1:
             arr[index_of_elem] = input()
             print("Редактировние успешно!")
+            print_array(arr)
         elif action == 2:
             arr.pop(index_of_elem)
             print("Удаление успешно!")
+
+def print_array(arr: list):
+    for i in range(len(variants)):
+        print(f"{i + 1}: {variants[i]}")
 
 count_of_variants: int = 0
 variant: str = ""
 variants: list = []
 
 variant = input("Вводите варианты: ").lower()
-while variant.lower() != "stop":
+while variant.lower() != "stop" and variant.lower() != "стоп":
     variants.append(variant)
     variant = input().lower()
 
 count_of_variants = len(variants)
 
 print(f"Правильный список?:")
-for i in range(len(variants)):
-    print(f"{i + 1}: {variants[i]}")
+print_array(variants)
 print(f"1 - ДА\n2 - НЕТ")
 answer = int(input())
 if answer == 2:
